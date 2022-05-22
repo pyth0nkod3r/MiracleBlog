@@ -1,6 +1,5 @@
 {% load static %}
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,15 +10,32 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
-    <header>
-        <h1>
-            <a href="{% url 'blogapphome' %}">Personal Thoughts</a>
-        </h1>
-    </header>
-        <div>
+    <div>
+        <header>
+            <div class="nav-left">
+            <h1>
+                <a href="{% url 'blogapphome' %}">Personal Thoughts</a>
+            </h1>
+        </div>
+            <div class='nav-right'>
+        <a href="{% url 'blogappcreatepost' %}">+ New Post</a>
+        </div>
+        </header>
+        {% if user.is_authenticated %}
+        <p>
+            Hi {{ user.username }}!
+            <a href="{% url 'logout' %}">Log Out</a>
+        </p>
+        {% else %}
+        <p>
+            You are not logged in!
+        </p>
+        <a href="{% url 'login' %}">Log In</a>
+       
+        {% endif %}
             {% block content %}
             
             {% endblock content %}
-        </div>
+    </div>
 </body>
 </html>
